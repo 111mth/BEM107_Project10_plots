@@ -6,13 +6,17 @@ from __future__ import unicode_literals
 
 import matplotlib
 import matplotlib.pyplot as plt
-import numpy as np
+import numpy
 
 from datetime import datetime
 
 
 returns = matplotlib.mlab.csv2rec('./returns_calculated.csv',delimiter=b',')
 news = matplotlib.mlab.csv2rec('./news.csv',delimiter=b',')
+
+def cumulate_returns(series):
+	'''Takes a time-series of daily returns and calculates the cumulative returns.'''
+	return (1 + numpy.array(series)).cumprod() - 1
 
 print('Footnotes (headline text):')
 for i, (time, headline) in enumerate(news):
@@ -34,8 +38,8 @@ call = lambda f: f()
 def figure2a():
 	fig = plt.figure()
 	axes = fig.add_subplot(1, 1, 1)
-	axes.plot(returns['date'], returns['cumexcret_yhoo'])
-	axes.plot(returns['date'], returns['cumexcret_msft'])
+	axes.plot(returns['date'], returns['excret_yhoo'])
+	axes.plot(returns['date'], returns['excret_msft'])
 	annotate_news(axes)
 	fig.tight_layout()
 	return fig
