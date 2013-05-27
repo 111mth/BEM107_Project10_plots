@@ -34,7 +34,8 @@ def annotate_news(axes):
 
 def plot_with_news(title, *series_list):
 	'''Plots the specified series against the dates.'''
-	fig = plt.figure()
+	fig = plt.figure(title)
+	fig.suptitle(title)
 	axes = fig.add_subplot(1, 1, 1)
 	for series in series_list:
 		axes.plot(returns['date'], series)
@@ -46,8 +47,8 @@ def plot_with_news(title, *series_list):
 	# plt.ion(); plt.show()
 	# from IPython import embed; embed()
 
-figure2a = plot_with_news('Blah blah blah blah@@@@', returns['excret_yhoo'], returns['excret_msft'])
-figure2b = plot_with_news('Blah blah blah blah@@@@', cumulate_returns(returns['excret_yhoo']), cumulate_returns(returns['excret_msft']))
+figure2a = plot_with_news('2a. Microsoft and Yahoo excess returns', returns['excret_yhoo'], returns['excret_msft'])
+figure2b = plot_with_news('2b. Microsoft and Yahoo cumulative excess returns', cumulate_returns(returns['excret_yhoo']), cumulate_returns(returns['excret_msft']))
 
 # @@@ To do: export plots to SVG
 plt.show()
