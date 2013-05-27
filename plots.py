@@ -32,25 +32,23 @@ def annotate_news(axes):
 
 #ax.set_xlim((datetime(2008, 01, 01), datetime(2008, 03, 01)))
 
-call = lambda f: f()
-
-@call
-def figure2a():
+def plot_with_news(title, *series_list):
+	'''Plots the specified series against the dates.'''
 	fig = plt.figure()
 	axes = fig.add_subplot(1, 1, 1)
-	axes.plot(returns['date'], returns['excret_yhoo'])
-	axes.plot(returns['date'], returns['excret_msft'])
+	for series in series_list:
+		axes.plot(returns['date'], series)
 	annotate_news(axes)
 	fig.tight_layout()
 	return fig
+	
+	# For debugging plots
+	# plt.ion(); plt.show()
+	# from IPython import embed; embed()
 
-	#plt.ion()
-	#plt.show()
-	#from IPython import embed; embed()
+figure2a = plot_with_news('Blah blah blah blah@@@@', returns['excret_yhoo'], returns['excret_msft'])
+figure2b = plot_with_news('Blah blah blah blah@@@@', cumulate_returns(returns['excret_yhoo']), cumulate_returns(returns['excret_msft']))
 
-#from IPython import embed; embed()
-
-
-
+# @@@ To do: export plots to SVG
 plt.show()
 
