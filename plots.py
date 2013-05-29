@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import numpy
 
 from datetime import datetime
+import argparse
 
 
 returns = matplotlib.mlab.csv2rec('./returns_calculated.csv',delimiter=b',')
@@ -30,13 +31,12 @@ def annotate_news(axes):
 	news_axes.set_xticklabels(map('[{0}]'.format,xrange(len(news))))
 	news_axes.xaxis.grid(True, linestyle='-', linewidth=1, color='black', alpha=0.2)
 
-#ax.set_xlim((datetime(2008, 01, 01), datetime(2008, 03, 01)))
-
 def plot_with_news(title, *series_list):
 	'''Plots the specified series against the dates.'''
 	fig = plt.figure(title)
 	fig.suptitle(title)
 	axes = fig.add_subplot(1, 1, 1)
+	axes.set_xlim((datetime(2008, 01, 25), datetime(2008, 03, 01)))
 	for series in series_list:
 		axes.plot(returns['date'], series)
 	annotate_news(axes)
@@ -47,9 +47,10 @@ def plot_with_news(title, *series_list):
 	# plt.ion(); plt.show()
 	# from IPython import embed; embed()
 
-figure2a = plot_with_news('2a. Microsoft and Yahoo excess returns', returns['excret_yhoo'], returns['excret_msft'])
-figure2b = plot_with_news('2b. Microsoft and Yahoo cumulative excess returns', cumulate_returns(returns['excret_yhoo']), cumulate_returns(returns['excret_msft']))
+figure2a = plot_with_news('2a. Microsoft and Yahoo excess returns', returns['yhoo'], returns['msft'], returns['my'])
+figure2b = plot_with_news('2b. Microsoft and Yahoo cumulative excess returns', cumulate_returns(returns['yhoo']), cumulate_returns(returns['msft']), cumulate_returns(returns['my']))
 
 # @@@ To do: export plots to SVG
 plt.show()
+
 
