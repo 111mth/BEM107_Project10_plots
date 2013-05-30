@@ -9,8 +9,6 @@ import matplotlib.pyplot as plt
 import numpy
 
 from datetime import datetime
-import argparse
-
 
 returns = matplotlib.mlab.csv2rec('./returns_calculated.csv',delimiter=b',')
 news = matplotlib.mlab.csv2rec('./news.csv',delimiter=b',')
@@ -49,6 +47,8 @@ def plot_with_news(title, *series_list):
 
 figure2a = plot_with_news('2a. Microsoft and Yahoo excess returns', returns['yhoo'], returns['msft'], returns['my'])
 figure2b = plot_with_news('2b. Microsoft and Yahoo cumulative excess returns', cumulate_returns(returns['yhoo']), cumulate_returns(returns['msft']), cumulate_returns(returns['my']))
+figure2ap = plot_with_news('2a+. Microsoft, Yahoo, and Google excess returns', returns['yhoo'], returns['msft'], returns['my'], returns['goog'])
+figure2bp = plot_with_news('2b+. Microsoft, Yahoo, and Google cumulative excess returns', cumulate_returns(returns['yhoo']), cumulate_returns(returns['msft']), cumulate_returns(returns['my']), cumulate_returns(returns['goog']))
 
 # @@@ To do: export plots to SVG
 plt.show()
